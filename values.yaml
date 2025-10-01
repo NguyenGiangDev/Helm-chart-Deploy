@@ -3,26 +3,18 @@ replicaCount: 1
 # Chính sách pull image
 image:
   pullPolicy: IfNotPresent
+environment:
+  NODE_ENV: development
 
 # Danh sách service trong microservice app
 services:
   api-gateway:
-    replicaCount: 2
+    replicaCount: 1
     port: 3000
+    type: NodePort
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/api-gateway
       tag: v6
-    probes:
-      liveness:
-        path: /health
-        port: 3000
-        initialDelaySeconds: 10
-        periodSeconds: 15
-      readiness:
-        path: /health
-        port: 3000
-        initialDelaySeconds: 5
-        periodSeconds: 10
 
   auth-service:
     replicaCount: 1
@@ -30,17 +22,6 @@ services:
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/auth-service
       tag: v6
-    probes:
-      liveness:
-        path: /health
-        port: 3001
-        initialDelaySeconds: 10
-        periodSeconds: 15
-      readiness:
-        path: /health
-        port: 3001
-        initialDelaySeconds: 5
-        periodSeconds: 10
 
   charge-service:
     replicaCount: 1
@@ -48,17 +29,6 @@ services:
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/charge-service
       tag: v6
-    probes:
-      liveness:
-        path: /health
-        port: 3002
-        initialDelaySeconds: 10
-        periodSeconds: 15
-      readiness:
-        path: /health
-        port: 3002
-        initialDelaySeconds: 5
-        periodSeconds: 10
 
   history-service:
     replicaCount: 1
@@ -66,17 +36,6 @@ services:
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/history-service
       tag: v6
-    probes:
-      liveness:
-        path: /health
-        port: 3003
-        initialDelaySeconds: 10
-        periodSeconds: 15
-      readiness:
-        path: /health
-        port: 3003
-        initialDelaySeconds: 5
-        periodSeconds: 10
 
   transaction-service:
     replicaCount: 1
@@ -84,15 +43,3 @@ services:
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/transaction-service
       tag: v6
-    probes:
-      liveness:
-        path: /health
-        port: 3004
-        initialDelaySeconds: 10
-        periodSeconds: 15
-      readiness:
-        path: /health
-        port: 3004
-        initialDelaySeconds: 5
-        periodSeconds: 10
-

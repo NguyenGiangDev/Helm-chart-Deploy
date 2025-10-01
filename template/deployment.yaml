@@ -1,4 +1,4 @@
-{{-range $name, $service := .Values.services }}
+{{- range $name, $service := .Values.services }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -7,7 +7,7 @@ metadata:
   labels:
     app: {{ $name }}
 spec:
-  replicas: {{ $.Values.replicaCount }}
+  replicas: {{ $service.replicaCount }}
   selector:
     matchLabels:
       app: {{ $name }}
@@ -22,21 +22,39 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           ports:
             - containerPort: {{ $service.port }}
-          resources:
-            {{-toYaml $.Values.resources | nindent 12 }}
-          {{-if $.Values.probes.enabled }}
+          env:
+            - name: NODE_ENV
+              value: {{ $.Values.environment.NODE_ENV | quote }}
+            {{- if ne $name "api-gateway" }}
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_HOST
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
+            {{- else if eq $name "api-gateway" }}
+            - name: ENV_FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: ENV_FRONTEND_URL
+            {{- end }}
+          {{- if $service.probes }}
           livenessProbe:
             httpGet:
-              path: {{ $.Values.probes.liveness.path }}
-              port: {{ $.Values.probes.liveness.port }}
-            initialDelaySeconds: {{ $.Values.probes.liveness.initialDelaySeconds }}
-            periodSeconds: {{ $.Values.probes.liveness.periodSeconds }}
+              path: {{ $service.probes.liveness.path }}
+              port: {{ $service.probes.liveness.port }}
+            initialDelaySeconds: {{ $service.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ $service.probes.liveness.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: {{ $.Values.probes.readiness.path }}
-              port: {{ $.Values.probes.readiness.port }}
-            initialDelaySeconds: {{ $.Values.probes.readiness.initialDelaySeconds }}
-            periodSeconds: {{ $.Values.probes.readiness.periodSeconds }}
-          {{-end }}
-{{-end }}
-
+              path: {{ $service.probes.readiness.path }}
+              port: {{ $service.probes.readiness.port }}
+            initialDelaySeconds: {{ $service.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ $service.probes.readiness.periodSeconds }}
+          {{- end }}
+{{- end }}
