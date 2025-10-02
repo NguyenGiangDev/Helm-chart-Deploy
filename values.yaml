@@ -21,7 +21,7 @@ services:
     port: 3001
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/auth-service
-      tag: v6
+      tag: v24
 
   charge-service:
     replicaCount: 1
