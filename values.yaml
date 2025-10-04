@@ -14,7 +14,7 @@ services:
     type: NodePort
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/api-gateway
-      tag: v11
+      tag: v9
 
   auth-service:
     replicaCount: 1
