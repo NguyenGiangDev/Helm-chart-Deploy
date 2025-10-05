@@ -35,7 +35,7 @@ services:
     port: 3003
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/history-service
-      tag: v6
+      tag: v27
 
   transaction-service:
     replicaCount: 1
