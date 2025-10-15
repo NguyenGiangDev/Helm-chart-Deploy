@@ -14,32 +14,32 @@ services:
     type: NodePort
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/api-gateway
-      tag: v30
+      tag: v31
 
   auth-service:
     replicaCount: 1
     port: 3001
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/auth-service
-      tag: v30
+      tag: v31
 
   charge-service:
     replicaCount: 1
     port: 3002
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/charge-service
-      tag: v6
+      tag: v31
 
   history-service:
     replicaCount: 1
     port: 3003
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/history-service
-      tag: v27
+      tag: v31
 
   transaction-service:
     replicaCount: 1
     port: 3004
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/transaction-service
-      tag: v30
+      tag: v31
