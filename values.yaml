@@ -42,4 +42,4 @@ services:
     port: 3004
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/transaction-service
-      tag: v32
+      tag: v33
