@@ -28,14 +28,14 @@ services:
     port: 3002
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/charge-service
-      tag: v34
+      tag: v35
 
   history-service:
     replicaCount: 1
     port: 3003
     image:
       repository: fintechdevopsacr123ntech-f4aadcc8c4f2daaa.azurecr.io/history-service
-      tag: v34
+      tag: v35
 
   transaction-service:
     replicaCount: 1
